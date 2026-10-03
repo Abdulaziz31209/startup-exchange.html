@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Startup Idea Exchange — O‘zbekiston Startaplar Tarmog‘i</title>
+  <meta name="description" content="G'oyalaringiz bilan bo'lishing, jamoa yiging, investor va dasturchilarni toping hamda professional fikrlar oling.">
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Startup Idea Exchange — O‘zbekiston Startaplar Tarmog‘i">
+  <meta property="og:description" content="G'oyalaringiz bilan bo'lishing, jamoa yiging, investor va dasturchilarni toping.">
+  <meta name="theme-color" content="#0b0c10">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0b0c10;
+      --bg-surface: #12141c;
+      --bg-card: #181a26;
+      --bg-card-hover: #1f2232;
+      --bg-input: #121420;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-color-glow: rgba(204, 255, 0, 0.35);
+      
+      --signal-lime: #ccff00;
+      --signal-lime-hover: #e0ff55;
+      --signal-lime-dim: rgba(204, 255, 0, 0.12);
+      --signal-lime-glow: 0 0 24px rgba(204, 255, 0, 0.25);
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --accent-blue: #38bdf8;
+      --accent-purple: #c084fc;
+      --accent-rose: #fb7185;
+      --accent-emerald: #34d399;
+      --accent-amber: #fbbf24;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --transition-fast: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      background: 
+        radial-gradient(circle at 10% 10%, rgba(204, 255, 0, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 40%),
+        var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: #26293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3b3f58; }
+
+    /* Custom Selection */
+    ::selection { background: var(--signal-lime); color: #000; }
+
+    /* Top Mobile Header */
+    .top-header {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(18, 20, 28, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Main Application Grid (3-Column Layout) */
+    .app-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 260px 1fr 320px;
+      gap: 24px;
+      padding: 24px 20px;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation (Column 1) */
+    .sidebar {
+      position: sticky;
+      top: 24px;
+      height: calc(100vh - 48px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      background: var(--signal-lime);
+      color: #000;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* User XP & Profile Box */
+    .user-profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #000;
+      flex-shrink: 0;
+    }
+
+    .user-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-handle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .xp-bar-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .xp-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .xp-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .xp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--signal-lime), #84cc16);
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    /* Nav Links */
+    .nav-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-main);
+    }
+
+    .nav-item.active {
+      background: var(--signal-lime-dim);
+      color: var(--signal-lime);
+      border-color: rgba(204, 255, 0, 0.25);
+    }
+
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    /* CTA Button */
+    .btn-create {
+      background: var(--signal-lime);
+      color: #0b0c10;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition-fast);
+      box-shadow: var(--signal-lime-glow);
+    }
+
+    .btn-create:hover {
+      background: var(--signal-lime-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(204, 255, 0, 0.4);
+    }
+
+    .btn-create:active {
+      transform: scale(0.98);
+    }
+
+    /* Main Stream (Column 2) */
+    .main-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+    }
+
+    /* Search & Filter Header */
+    .filter-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-dim);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 11px 14px 11px 42px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition-fast);
+    }
+
+    .search-input:focus {
+      border-color: var(--signal-lime);
+      box-shadow: 0 0 0 3px rgba(204, 255, 0, 0.15);
+    }
+
+    .filter-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .filter-select {
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .filter-select:focus {
+      border-color: var(--signal-lime);
+    }
+
+    .tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .tag-chip:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+    }
+
+    .tag-chip.active {
+      background: var(--signal-lime);
+      color: #000;
+      border-color: var(--signal-lime);
+      font-weight: 700;
+    }
+
+    .tag-chip.static {
+      cursor: default;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Content Cards Grid & Stream */
+    .stream-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .stream-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .sort-options {
+      display: flex;
+      gap: 4px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 3px;
+      border-radius: var(--radius-md);
+    }
+
+    .sort-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .sort-btn.active {
+      background: var(--bg-card);
+      color: var(--signal-lime);
+    }
+
+    /* Startup Card */
+    .idea-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .idea-card:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .card-title-group {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-author-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .card-author-link:hover {
+      color: var(--signal-lime);
+    }
+
+    .stage-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .stage-G‘oya, .stage-G\'oya { background: rgba(100, 116, 139, 0.2); color: #94a3b8; border: 1px solid rgba(100, 116, 139, 0.3); }
+    .stage-Prototip { background: rgba(14, 165, 233, 0.2); color: var(--accent-blue); border: 1px solid rgba(14, 165, 233, 0.3); }
+    .stage-MVP { background: rgba(192, 132, 252, 0.2); color: var(--accent-purple); border: 1px solid rgba(192, 132, 252, 0.3); }
+    .stage-Mijozlar-bor { background: rgba(52, 211, 153, 0.2); color: var(--accent-emerald); border: 1px solid rgba(52, 211, 153, 0.3); }
+    .stage-O‘sish, .stage-O\'sish { background: rgba(251, 191, 36, 0.2); color: var(--accent-amber); border: 1px solid rgba(251, 191, 36, 0.3); }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+
+    .info-block {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .info-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .info-text {
+      color: #e2e8f0;
+    }
+
+    .roles-needed {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .role-chip {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+
+    .action-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .btn-action:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-vote {
+      background: rgba(204, 255, 0, 0.08);
+      border-color: rgba(204, 255, 0, 0.2);
+      color: var(--signal-lime);
+    }
+
+    .btn-vote:hover {
+      background: var(--signal-lime);
+      color: #000;
+      border-color: var(--signal-lime);
+    }
+
+    .btn-vote.voted {
+      background: var(--signal-lime);
+      color: #000;
+      font-weight: 800;
+    }
+
+    /* Feedback Expansion Box */
+    .feedback-drawer {
+      margin-top: 8px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .fb-tabs {
+      display: flex;
+      gap: 6px;
+    }
+
+    .fb-tab-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .fb-tab-btn.active {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .fb-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .fb-item {
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      border-left: 3px solid var(--text-dim);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .fb-item.pro { border-color: var(--accent-emerald); background: rgba(52, 211, 153, 0.05); }
+    .fb-item.con { border-color: var(--accent-rose); background: rgba(251, 113, 133, 0.05); }
+    .fb-item.tip { border-color: var(--accent-amber); background: rgba(251, 191, 36, 0.05); }
+
+    /* Right Sidebar (Column 3) */
+    .right-panel {
+      position: sticky;
+      top: 24px;
+      height: calc(100vh - 48px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow-y: auto;
+    }
+
+    .panel-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .panel-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .panel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .top-idea-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      transition: var(--transition-fast);
+    }
+
+    .top-idea-item:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .top-idea-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-main);
+    }
+
+    .vote-count-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--signal-lime);
+      background: var(--signal-lime-dim);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+    }
+
+    .member-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .member-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .member-skills {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Modal Overlay System */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transform: translateY(20px) scale(0.96);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-backdrop.active .modal-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .btn-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+
+    .btn-close:hover { color: var(--text-main); }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--signal-lime);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 120;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background: var(--signal-lime);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Poll Bar styling */
+    .poll-opt-btn {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .poll-opt-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      background: var(--signal-lime-dim);
+      transition: width 0.4s ease;
+    }
+
+    .poll-opt-content {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+
+    /* Video Room Tiles */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .video-tile {
+      position: relative;
+      aspect-ratio: 16/10;
+      background: #000;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    .video-tile video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-tile-name {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .room-controls {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      padding: 16px;
+    }
+
+    .ctrl-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: var(--transition-fast);
+    }
+
+    .ctrl-btn:hover { transform: scale(1.1); }
+    .ctrl-btn.off { background: var(--accent-rose); color: #fff; }
+    .ctrl-btn.active { background: var(--signal-lime); color: #000; }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1120px) {
+      .app-container {
+        grid-template-columns: 240px 1fr;
+      }
+      .right-panel {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-header { display: flex; }
+      .app-container {
+        grid-template-columns: 1fr;
+        padding: 16px 12px;
+      }
+      .sidebar {
+        display: none; /* Collapses into mobile drawer */
+      }
+      .sidebar.mobile-open {
+        display: flex;
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: 280px;
+        z-index: 90;
+        height: 100vh;
+        border-radius: 0;
+      }
+      .modal-card {
+        padding: 18px;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Top Header -->
+  <header class="top-header">
+    <a href="#" class="brand-logo" onclick="switchNav('feed')">
+      <span>🚀 STARTUP</span>
+      <span class="brand-badge">UZ</span>
+    </a>
+    <div style="display: flex; gap: 8px;">
+      <button class="btn-create" style="padding: 6px 12px; font-size: 0.8rem;" onclick="openModal('addIdeaModal')">+ G‘oya</button>
+      <button class="btn-action" id="menuToggleBtn" onclick="toggleMobileSidebar()">☰</button>
+    </div>
+  </header>
+
+  <!-- Main 3-Column Layout -->
+  <div class="app-container">
+    
+    <!-- Column 1: Left Navigation Sidebar -->
+    <aside class="sidebar" id="mainSidebar">
+      <a href="#" class="brand-logo" onclick="switchNav('feed')">
+        <span>🚀 STARTUP EXCHANGE</span>
+        <span class="brand-badge">PRO</span>
+      </a>
+
+      <!-- User Info & Level Card -->
+      <div class="user-profile-card">
+        <div class="user-info">
+          <div class="avatar" id="userAvatar">?</div>
+          <div class="user-details">
+            <div class="user-name" id="userNameDisplay">Mehmon</div>
+            <div class="user-handle" id="userHandleDisplay">@mehmon</div>
+          </div>
+        </div>
+        <div class="xp-bar-container">
+          <div class="xp-label">
+            <span id="levelBadge">⭐ 1-Daraja</span>
+            <span id="xpText">0 XP</span>
+          </div>
+          <div class="xp-bar">
+            <div class="xp-fill" id="xpFillBar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="nav-menu">
+        <button class="nav-item active" data-nav="feed" onclick="switchNav('feed')">
+          <span class="nav-icon">💡</span>
+          <span>G‘oyalar Lentasi</span>
+        </button>
+        <button class="nav-item" data-nav="board" onclick="switchNav('board')">
+          <span class="nav-icon">🤝</span>
+          <span>Yordam &amp; Hamkorlik</span>
+        </button>
+        <button class="nav-item" data-nav="polls" onclick="switchNav('polls')">
+          <span class="nav-icon">📊</span>
+          <span>So‘rovnomalar</span>
+        </button>
+        <button class="nav-item" data-nav="room" onclick="switchNav('room')">
+          <span class="nav-icon">📹</span>
+          <span>Video Zal</span>
+        </button>
+        <button class="nav-item" data-nav="team" onclick="switchNav('team')">
+          <span class="nav-icon">💬</span>
+          <span>Jamoa Chati</span>
+        </button>
+        <button class="nav-item" data-nav="people" onclick="switchNav('people')">
+          <span class="nav-icon">👥</span>
+          <span>Mutaxassislar</span>
+        </button>
+        <button class="nav-item" data-nav="me" onclick="switchNav('me')">
+          <span class="nav-icon">👤</span>
+          <span>Mening Profilim</span>
+        </button>
+      </nav>
+
+      <!-- Primary Action CTA -->
+      <button class="btn-create" onclick="openModal('addIdeaModal')">
+        <span>+ Yangi G‘oya Qo‘shish</span>
+      </button>
+    </aside>
+
+    <!-- Column 2: Center Main Content Feed -->
+    <main class="main-stream">
+      
+      <!-- Filter & Search Panel -->
+      <section class="filter-section">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="searchInput" placeholder="Startap g'oyasi, kalit so'z yoki teglar bo'yicha qidiruv..." oninput="handleSearch(this.value)">
+        </div>
+        
+        <div class="filter-controls">
+          <select class="filter-select" id="stageFilter" onchange="handleStageFilter(this.value)">
+            <option value="">Barcha Bosqichlar</option>
+            <option value="G‘oya">G‘oya</option>
+            <option value="Prototip">Prototip</option>
+            <option value="MVP">MVP</option>
+            <option value="Mijozlar bor">Mijozlar bor</option>
+            <option value="O‘sish">O‘sish</option>
+          </select>
+
+          <select class="filter-select" id="seekFilter" onchange="handleSeekFilter(this.value)">
+            <option value="">Kim Qidirilmoqda</option>
+            <option value="Hamkor">Hamkor</option>
+            <option value="Dasturchi">Dasturchi</option>
+            <option value="Dizayner">Dizayner</option>
+            <option value="Marketolog">Marketolog</option>
+            <option value="Investor">Investor</option>
+            <option value="Mentor">Mentor</option>
+          </select>
+        </div>
+
+        <div class="tags-cloud" id="tagsCloud"></div>
+      </section>
+
+      <!-- Stream Header -->
+      <div class="stream-header">
+        <h2 class="stream-title" id="streamTitleText">Startap G'oyalar Lentasi</h2>
+        <div class="sort-options" id="sortOptionsContainer">
+          <button class="sort-btn active" id="sortNewest" onclick="setSort('newest')">Eng Yangi</button>
+          <button class="sort-btn" id="sortVotes" onclick="setSort('votes')">Top Ovozlar</button>
+        </div>
+      </div>
+
+      <!-- Main Dynamic Content Container -->
+      <div id="dynContent"></div>
+
+    </main>
+
+    <!-- Column 3: Right Panel (Trends & Active Members) -->
+    <aside class="right-panel">
+      
+      <!-- Top Voted Ideas Box -->
+      <div class="panel-box">
+        <h3 class="panel-title">
+          <span>🔥 Top G‘oyalar</span>
+        </h3>
+        <div class="panel-list" id="topIdeasPanel"></div>
+      </div>
+
+      <!-- Platform Trends Box -->
+      <div class="panel-box">
+        <h3 class="panel-title">
+          <span>⚡ Platforma Trendlari</span>
+        </h3>
+        <div class="tags-cloud" id="rightTagsPanel"></div>
+      </div>
+
+      <!-- Active Community Members Box -->
+      <div class="panel-box">
+        <h3 class="panel-title">
+          <span>🟢 Faol A'zolar</span>
+        </h3>
+        <div class="panel-list" id="activeMembersPanel"></div>
+      </div>
+
+      <!-- Community Stats Box -->
+      <div class="panel-box">
+        <h3 class="panel-title">
+          <span>📈 Statistika</span>
+        </h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center;">
+          <div style="background: var(--bg-card); padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 1.2rem; color: var(--signal-lime);" id="statIdeaCount">0</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">G'oyalar</div>
+          </div>
+          <div style="background: var(--bg-card); padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 1.2rem; color: var(--accent-blue);" id="statMemberCount">0</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">A'zolar</div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- Add Startup Idea Modal -->
+  <div class="modal-backdrop" id="addIdeaModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">🚀 Yangi Startap G‘oyasi</h3>
+        <button class="btn-close" onclick="closeModal('addIdeaModal')">✕</button>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Startap Nomi</label>
+        <input type="text" class="form-input" id="newIdeaTitle" placeholder="Masalan: EduPulse, AgroBot">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Muammo (Qaysi og'riqni hal qiladi?)</label>
+        <textarea class="form-textarea" id="newIdeaProblem" rows="2" placeholder="Mijozlar nimadan qiynalmoqda..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Yechim (Sizning taklifingiz)</label>
+        <textarea class="form-textarea" id="newIdeaSolution" rows="2" placeholder="Mahsulot yoki xizmat qanday ishlaydi..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Maqsadli Bozor</label>
+        <input type="text" class="form-input" id="newIdeaMarket" placeholder="Masalan: O'zbekiston, Talabalar, Kichik bizneslar">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Joriy Bosqich</label>
+          <select class="form-select" id="newIdeaStage">
+            <option>G‘oya</option>
+            <option>Prototip</option>
+            <option>MVP</option>
+            <option>Mijozlar bor</option>
+            <option>O‘sish</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Teglar (vergul bilan)</label>
+          <input type="text" class="form-input" id="newIdeaTags" placeholder="edtech, ai, bot">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Kimlar Qidirilmoqda?</label>
+        <div class="tags-cloud" id="modalSeekChips"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Pitch Deck (PDF, PPTX, ≤1.5 MB)</label>
+        <input type="file" class="form-input" id="newIdeaPitchFile" accept=".pdf,.pptx,.docx">
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+        <button class="btn-action" onclick="closeModal('addIdeaModal')">Bekor qilish</button>
+        <button class="btn-create" onclick="submitNewIdea()">Nashr etish (+20 XP)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- JavaScript Codebase -->
+  <script>
+    // State management & Constants
+    const STAGES = ['G‘oya', 'Prototip', 'MVP', 'Mijozlar bor', 'O‘sish'];
+    const SC = ['#64748b', '#0ea5e9', '#c084fc', '#34d399', '#fbbf24'];
+    const SEEK_ROLES = ['Hamkor', 'Dasturchi', 'Dizayner', 'Marketolog', 'Investor', 'Maslahatchi', 'Mentor'];
+    const FB_TYPES = {
+      pro: ['👍 Afzalliklari', 'pro'],
+      con: ['⚠️ Kamchiliklari / Xavflari', 'con'],
+      tip: ['💡 Maslahatlar', 'tip']
+    };
+
+    // Initial Seed Data
+    const seedData = () => ({
+      me: null,
+      loc: {},
+      xp: 25,
+      users: [
+        { name: 'Dilnoza K.', tg: 'dilnoza_demo', bio: 'Product dizayner, 3 yillik tajriba', skills: ['UI/UX', 'Figma', 'Research'] },
+        { name: 'Jasur M.', tg: 'jasur_demo', bio: 'Full-stack dasturchi', skills: ['Python', 'React', 'AI'] },
+        { name: 'Azizbek R.', tg: 'aziz_startup', bio: 'Fintech & Growth mutaxassisi', skills: ['Growth', 'Marketing', 'Fintech'] }
+      ],
+      ideas: [
+        {
+          id: 1,
+          owner: 'Dilnoza K.',
+          title: 'TalimGo',
+          problem: 'Qishloq o‘quvchilari sifatli repetitorni topa olmaydi va moliyaviy imkoniyati cheklangan.',
+          solution: 'Onlayn repetitorlar bozori: qisqa mikro-darslar va har bir seans uchun mikro-to‘lovlar.',
+          market: 'O‘zbekiston, 9–11-sinf o‘quvchilari va abituriyentlar',
+          stage: 'Prototip',
+          seek: ['Dasturchi', 'Marketolog'],
+          tags: ['edtech', 'marketplace', 'ai'],
+          votes: ['jasur_demo', 'aziz_startup'],
+          pitch: null,
+          fb: {
+            pro: ['Aniq og‘riq nuqtasi va keng bozor.'],
+            con: ['Repetitorlar sifatini doimiy nazorat qilish qiyin.'],
+            tip: ['Avval 1 ta viloyatda MVP sinovidan o‘tkazing.']
+          }
+        },
+        {
+          id: 2,
+          owner: 'Jasur M.',
+          title: 'AgroSignal AI',
+          problem: 'Fermerlar ob-havo o‘zgarishi va bozor narx ma’lumotlarini kechikib oladi.',
+          solution: 'Telegram sun’iy intellekt boti: kunlik aqlli ogohlantirishlar va narxlar tahlili.',
+          market: 'Kichik va o‘rta fermer xo‘jaliklari',
+          stage: 'G‘oya',
+          seek: ['Hamkor', 'Mentor', 'Investor'],
+          tags: ['agro', 'telegram', 'ai'],
+          votes: ['dilnoza_demo'],
+          pitch: null,
+          fb: { pro: [], con: [], tip: [] }
+        }
+      ]
+    });
+
+    // Load state safely
+    let S;
+    try {
+      S = JSON.parse(localStorage.getItem('sx_app_state_v2'));
+    } catch(e) {}
+    if (!S || !S.ideas) S = seedData();
+    S.loc = S.loc || {};
+    S.xp = S.xp || 0;
+    S.ideas.forEach(i => { if (!i.votes) i.votes = []; });
+
+    const saveState = () => {
+      try {
+        localStorage.setItem('sx_app_state_v2', JSON.stringify(S));
+      } catch(e) {
+        showToast('Saqlashda xatolik (xotira to‘ldi)');
+      }
+    };
+
+    // Navigation & UI States
+    let currentView = 'feed';
+    let filterState = { q: '', stage: '', seek: '', tag: '' };
+    let activeSort = 'newest';
+    let selectedSeekModal = new Set();
+    let openFbDrawer = {};
+    let openFbTab = {};
+    let openTeamDrawer = {};
+    let currentProfileUser = null;
+
+    // Database / Claude integrations fallback
+    const D = { polls: [], votes: [], profiles: [], teams: [], tchat: [] };
+    let DB = null, UID = null, UN = '';
+
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    const cleanTg = u => (u || '').replace(/[^\w]/g, '');
+    const tgLink = u => cleanTg(u) ? `<a href="https://t.me/${cleanTg(u)}" target="_blank" rel="noopener" style="color: var(--signal-lime); text-decoration: none;">@${cleanTg(u)}</a>` : '';
+
+    const hue = n => [...(n||'?')].reduce((a,c) => a + c.charCodeAt(0), 0) * 37 % 360;
+    const renderAvatar = (name) => {
+      const initial = esc((name || '?').trim()[0] || '?').toUpperCase();
+      const bg = `hsl(${hue(name)}, 70%, 45%)`;
+      return `<div class="avatar" style="background: ${bg};">${initial}</div>`;
+    };
+
+    const myName = () => S.me ? S.me.name : (UN || 'Mehmon');
+    const isMyIdea = idea => S.me && idea.owner === S.me.name;
+
+    // Toast Notifications
+    function showToast(msg) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span>⚡</span> <span>${esc(msg)}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3200);
+    }
+
+    // XP & Leveling System
+    function addXP(amount, reason) {
+      S.xp += amount;
+      saveState();
+      updateUserHUD();
+      showToast(`+${amount} XP ${reason ? '(' + reason + ')' : ''}`);
+    }
+
+    function updateUserHUD() {
+      const level = Math.floor(S.xp / 50) + 1;
+      const progress = (S.xp % 50) * 2;
+      const name = myName();
+      
+      document.getElementById('userNameDisplay').textContent = name;
+      document.getElementById('userHandleDisplay').textContent = S.me && S.me.tg ? `@${S.me.tg}` : '@startapchi';
+      document.getElementById('levelBadge').textContent = `⭐ ${level}-Daraja`;
+      document.getElementById('xpText').textContent = `${S.xp} XP`;
+      document.getElementById('xpFillBar').style.width = `${progress}%`;
+      document.getElementById('userAvatar').outerHTML = `<div class="avatar" id="userAvatar" style="background: hsl(${hue(name)}, 70%, 45%);">${esc(name[0]||'M').toUpperCase()}</div>`;
+    }
+
+    // Modal Helpers
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    // View Switching
+    function switchNav(viewKey) {
+      currentView = viewKey;
+      currentProfileUser = null;
+      document.querySelectorAll('.nav-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.nav === viewKey);
+      });
+      renderMainContent();
+    }
+
+    function toggleMobileSidebar() {
+      const sb = document.getElementById('mainSidebar');
+      sb.classList.toggle('mobile-open');
+    }
+
+    // Upvoting System
+    function toggleVote(ideaId) {
+      const idea = S.ideas.find(i => i.id === ideaId);
+      if (!idea) return;
+      const voter = myName();
+      const idx = idea.votes.indexOf(voter);
+      if (idx >= 0) {
+        idea.votes.splice(idx, 1);
+      } else {
+        idea.votes.push(voter);
+        addXP(3, "Ovoz berildi");
+      }
+      saveState();
+      renderMainContent();
+      renderRightPanel();
+    }
+
+    // Filtering & Sorting
+    function getFilteredIdeas() {
+      const q = filterState.q.toLowerCase();
+      let res = S.ideas.filter(i => {
+        const matchesQ = !q || (i.title + i.problem + i.solution + i.market + i.tags.join(' ')).toLowerCase().includes(q);
+        const matchesStage = !filterState.stage || i.stage === filterState.stage;
+        const matchesSeek = !filterState.seek || i.seek.includes(filterState.seek);
+        const matchesTag = !filterState.tag || i.tags.includes(filterState.tag);
+        return matchesQ && matchesStage && matchesSeek && matchesTag;
+      });
+
+      if (activeSort === 'votes') {
+        res.sort((a, b) => b.votes.length - a.votes.length);
+      } else {
+        res.sort((a, b) => b.id - a.id);
+      }
+      return res;
+    }
+
+    function handleSearch(val) {
+      filterState.q = val;
+      renderDynamicStream();
+    }
+    function handleStageFilter(val) {
+      filterState.stage = val;
+      renderDynamicStream();
+    }
+    function handleSeekFilter(val) {
+      filterState.seek = val;
+      renderDynamicStream();
+    }
+    function toggleTagFilter(tag) {
+      filterState.tag = filterState.tag === tag ? '' : tag;
+      renderTagsCloud();
+      renderDynamicStream();
+    }
+    function setSort(sortKey) {
+      activeSort = sortKey;
+      document.getElementById('sortNewest').classList.toggle('active', sortKey === 'newest');
+      document.getElementById('sortVotes').classList.toggle('active', sortKey === 'votes');
+      renderDynamicStream();
+    }
+
+    // Render Tags Cloud
+    function renderTagsCloud() {
+      const tags = [...new Set(S.ideas.flatMap(i => i.tags))];
+      const container = document.getElementById('tagsCloud');
+      container.innerHTML = tags.map(t => 
+        `<button class="tag-chip ${filterState.tag === t ? 'active' : ''}" onclick="toggleTagFilter('${esc(t)}')">#${esc(t)}</button>`
+      ).join('');
+
+      const rightContainer = document.getElementById('rightTagsPanel');
+      rightContainer.innerHTML = tags.slice(0, 8).map(t => {
+        const count = S.ideas.filter(i => i.tags.includes(t)).length;
+        return `<button class="tag-chip ${filterState.tag === t ? 'active' : ''}" onclick="toggleTagFilter('${esc(t)}')">#${esc(t)} (${count})</button>`;
+      }).join('');
+    }
+
+    // Idea Card Generator
+    function createIdeaCardHtml(i, isBoard = false) {
+      const u = S.users.find(usr => usr.name === i.owner);
+      const isVoted = i.votes.includes(myName());
+      const stageClass = `stage-${i.stage.replace(/\s+/g, '-')}`;
+
+      return `
+      <article class="idea-card">
+        <div class="card-header">
+          ${renderAvatar(i.owner)}
+          <div class="card-title-group">
+            <h3 class="card-title">${esc(i.title)}</h3>
+            <div class="card-meta">
+              <a href="#" class="card-author-link" onclick="openUserProfile('${esc(i.owner)}'); return false;">${esc(i.owner)}</a>
+              ${u && u.tg ? '• ' + tgLink(u.tg) : ''}
+            </div>
+          </div>
+          <span class="stage-badge ${stageClass}">${esc(i.stage)}</span>
+        </div>
+
+        ${!isBoard ? `
+        <div class="card-body">
+          <div class="info-block">
+            <div class="info-label">Muammo</div>
+            <div class="info-text">${esc(i.problem)}</div>
+          </div>
+          <div class="info-block">
+            <div class="info-label">Yechim</div>
+            <div class="info-text">${esc(i.solution)}</div>
+          </div>
+          <div class="info-block">
+            <div class="info-label">Maqsadli Bozor</div>
+            <div class="info-text">${esc(i.market)}</div>
+          </div>
+        </div>
+        ` : ''}
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Qidirilmoqda</div>
+          <div class="roles-needed">
+            ${i.seek.map(s => `<span class="role-chip">${esc(s)}</span>`).join('') || '<span style="color: var(--text-muted); font-size: 0.8rem;">—</span>'}
+          </div>
+        </div>
+
+        <div class="tags-cloud">
+          ${i.tags.map(t => `<span class="tag-chip static">#${esc(t)}</span>`).join('')}
+        </div>
+
+        <div class="card-footer">
+          <div class="action-group">
+            <button class="btn-action btn-vote ${isVoted ? 'voted' : ''}" onclick="toggleVote(${i.id})">
+              <span>▲</span>
+              <span>${i.votes.length} Ovoz</span>
+            </button>
+
+            <button class="btn-action" onclick="toggleFbDrawer(${i.id})">
+              <span>💬 Fikrlar (${i.fb.pro.length + i.fb.con.length + i.fb.tip.length})</span>
+            </button>
+
+            ${i.pitch ? `<button class="btn-action" onclick="downloadPitch(${i.id})">📥 Pitch Deck</button>` : ''}
+          </div>
+
+          ${u && cleanTg(u.tg) ? `<a class="btn-action" style="background: var(--signal-lime-dim); color: var(--signal-lime); border-color: rgba(204,255,0,0.2);" href="https://t.me/${cleanTg(u.tg)}" target="_blank" rel="noopener">Telegramda yozish ↗</a>` : ''}
+        </div>
+
+        ${openFbDrawer[i.id] ? renderFbDrawerHtml(i) : ''}
+      </article>
+      `;
+    }
+
+    // Feedback Drawer HTML
+    function toggleFbDrawer(ideaId) {
+      openFbDrawer[ideaId] = !openFbDrawer[ideaId];
+      renderDynamicStream();
+    }
+    function switchFbTab(ideaId, tabKey) {
+      openFbTab[ideaId] = tabKey;
+      renderDynamicStream();
+    }
+    function addFeedback(ideaId) {
+      const input = document.getElementById(`fbInput_${ideaId}`);
+      const txt = input.value.trim();
+      if (!txt) return;
+
+      const idea = S.ideas.find(i => i.id === ideaId);
+      const currentTab = openFbTab[ideaId] || 'pro';
+      idea.fb[currentTab].push(txt);
+      saveState();
+      addXP(5, "Fikr bildirildi");
+      renderDynamicStream();
+    }
+
+    function renderFbDrawerHtml(i) {
+      const activeTab = openFbTab[i.id] || 'pro';
+      return `
+      <div class="feedback-drawer">
+        <div class="fb-tabs">
+          ${Object.entries(FB_TYPES).map(([k, [label]]) => 
+            `<button class="fb-tab-btn ${activeTab === k ? 'active' : ''}" onclick="switchFbTab(${i.id}, '${k}')">${label}</button>`
+          ).join('')}
+        </div>
+
+        <div class="fb-list">
+          ${i.fb[activeTab].map(txt => `<div class="fb-item ${activeTab}">${esc(txt)}</div>`).join('') || '<div style="color: var(--text-muted); font-size: 0.8rem;">Hozircha izoh yo‘q. Birinchi bo‘lib mulohaza bildiring!</div>'}
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+          <input type="text" class="form-input" id="fbInput_${i.id}" placeholder="O‘z fikringizni qoldiring..." style="flex: 1;" onkeydown="if(event.key==='Enter') addFeedback(${i.id})">
+          <button class="btn-create" style="padding: 8px 14px; font-size: 0.8rem;" onclick="addFeedback(${i.id})">Yuborish</button>
+        </div>
+      </div>
+      `;
+    }
+
+    // Pitch deck download handler
+    async function downloadPitch(ideaId) {
+      const idea = S.ideas.find(i => i.id === ideaId);
+      if (!idea || !idea.pitch) return;
+
+      try {
+        if (window.claude) {
+          const downloads = await claude.use('downloads');
+          if (downloads) {
+            const blob = await (await fetch(idea.pitch.data)).blob();
+            await downloads.save({ filename: idea.pitch.name, data: blob });
+            showToast('Fayl saqlandi!');
+            return;
+          }
+        }
+      } catch(e) {}
+
+      // Fallback
+      const a = document.createElement('a');
+      a.href = idea.pitch.data;
+      a.download = idea.pitch.name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('Pitch deck yuklanmoqda...');
+    }
+
+    // User Profile View Trigger
+    function openUserProfile(name) {
+      currentProfileUser = name;
+      currentView = 'profile_detail';
+      renderMainContent();
+    }
+
+    // Main Content Renderer
+    function renderMainContent() {
+      const dyn = document.getElementById('dynContent');
+      const streamTitle = document.getElementById('streamTitleText');
+      const sortContainer = document.getElementById('sortOptionsContainer');
+
+      if (currentView === 'feed') {
+        streamTitle.textContent = "Startap G'oyalar Lentasi";
+        sortContainer.style.display = 'flex';
+        renderDynamicStream();
+      } else if (currentView === 'board') {
+        streamTitle.textContent = "Hamkorlik & Yordam Taxtasi";
+        sortContainer.style.display = 'flex';
+        const filtered = getFilteredIdeas();
+        dyn.innerHTML = filtered.map(i => createIdeaCardHtml(i, true)).join('') || '<div style="color: var(--text-muted); text-align: center; padding: 40px;">Hech narsa topilmadi.</div>';
+      } else if (currentView === 'polls') {
+        streamTitle.textContent = "Hamjamiyat So'rovnomalari";
+        sortContainer.style.display = 'none';
+        renderPollsView(dyn);
+      } else if (currentView === 'room') {
+        streamTitle.textContent = "Jonli Video Zal (WebRTC)";
+        sortContainer.style.display = 'none';
+        renderVideoRoomView(dyn);
+      } else if (currentView === 'team') {
+        streamTitle.textContent = "Jamoa Workspace & Chat";
+        sortContainer.style.display = 'none';
+        renderTeamChatView(dyn);
+      } else if (currentView === 'people') {
+        streamTitle.textContent = "Startapchi & Mutaxassislar";
+        sortContainer.style.display = 'none';
+        renderPeopleView(dyn);
+      } else if (currentView === 'me') {
+        streamTitle.textContent = "Mening Profilim & Startaplarim";
+        sortContainer.style.display = 'none';
+        renderMyProfileView(dyn);
+      } else if (currentView === 'profile_detail') {
+        streamTitle.textContent = `Foydalanuvchi Profili`;
+        sortContainer.style.display = 'none';
+        renderUserProfileDetail(dyn);
+      }
+    }
+
+    function renderDynamicStream() {
+      if (currentView !== 'feed') return;
+      const dyn = document.getElementById('dynContent');
+      const filtered = getFilteredIdeas();
+      dyn.innerHTML = filtered.map(i => createIdeaCardHtml(i, false)).join('') || '<div style="color: var(--text-muted); text-align: center; padding: 40px;">Hech qanday g‘oya topilmadi.</div>';
+    }
+
+    // View Renders
+    function renderPollsView(container) {
+      const polls = D.polls.length ? D.polls : [
+        { id: 'p1', q: "Qaysi yo'nalishda startap boshlashni tavsiya qilasiz?", by: "Jasur M.", opts: ["AI & Telegram Botlar", "EdTech / Ta'lim", "Fintech & To'lovlar", "AgroTech"], t: Date.now() }
+      ];
+
+      container.innerHTML = `
+      <div class="panel-box" style="margin-bottom: 20px;">
+        <h3 class="panel-title">➕ Yangi So‘rovnoma Yaratish</h3>
+        <div class="form-group">
+          <label class="form-label">Savol</label>
+          <input type="text" class="form-input" id="pollQuestionInput" placeholder="Masalan: MVP uchun eng yaxshi freymvork?">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Variantlar (har bir qatorda bittadan)</label>
+          <textarea class="form-textarea" id="pollOptionsInput" rows="3" placeholder="React&#10;Vue&#10;Svelte"></textarea>
+        </div>
+        <button class="btn-create" style="align-self: flex-start;" onclick="submitNewPoll()">E’lon qilish (+10 XP)</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        ${polls.map(p => {
+          const votes = D.votes.filter(v => v.poll === p.id);
+          const total = votes.length;
+          return `
+          <div class="idea-card">
+            <h3 style="font-size: 1.1rem; font-weight: 800;">${esc(p.q)}</h3>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">${esc(p.by)} tomonidan yaratilgan • ${total} Ovoz</div>
+            <div>
+              ${p.opts.map((opt, idx) => {
+                const count = votes.filter(v => v.opt === idx).length;
+                const percent = total ? Math.round((count * 100) / total) : 0;
+                return `
+                <div class="poll-opt-btn" onclick="votePoll('${p.id}', ${idx})">
+                  <div class="poll-opt-fill" style="width: ${percent}%;"></div>
+                  <div class="poll-opt-content">
+                    <span>${esc(opt)}</span>
+                    <span>${percent}% (${count})</span>
+                  </div>
+                </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+          `;
+        }).join('')}
+      </div>
+      `;
+    }
+
+    function submitNewPoll() {
+      const q = document.getElementById('pollQuestionInput').value.trim();
+      const rawOpts = document.getElementById('pollOptionsInput').value.split('\n').map(x => x.trim()).filter(Boolean);
+      if (!q || rawOpts.length < 2) {
+        showToast('Savol va kamida 2 ta variant kiriting');
+        return;
+      }
+      const poll = { id: 'p' + Date.now(), q, opts: rawOpts, by: myName(), t: Date.now() };
+      D.polls.unshift(poll);
+      addXP(10, "So'rovnoma yaratildi");
+      renderMainContent();
+    }
+
+    function votePoll(pollId, optIdx) {
+      D.votes = D.votes.filter(v => !(v.poll === pollId && v.user === myName()));
+      D.votes.push({ poll: pollId, opt: optIdx, user: myName() });
+      addXP(2, "Ovoz berildi");
+      renderMainContent();
+    }
+
+    function renderVideoRoomView(container) {
+      container.innerHTML = `
+      <div class="idea-card" style="text-align: center; padding: 40px 20px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">📹</div>
+        <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">Jonli Video Zal &amp; Pitch Maydoni</h3>
+        <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 20px;">Startapchilardan fikr va baho olish uchun xonaga qo'shiling hamda ekraningizni ulashing.</p>
+        
+        <div class="video-grid" style="margin-bottom: 24px;">
+          <div class="video-tile">
+            <div style="font-size: 2.5rem;">👤</div>
+            <div class="video-tile-name">Siz (${esc(myName())})</div>
+          </div>
+          <div class="video-tile">
+            <div style="font-size: 2.5rem;">👤</div>
+            <div class="video-tile-name">Dilnoza K.</div>
+          </div>
+        </div>
+
+        <div class="room-controls">
+          <button class="ctrl-btn active" title="Mikrofon">🎤</button>
+          <button class="ctrl-btn active" title="Kamera">📷</button>
+          <button class="ctrl-btn" title="Ekran ulashish">🖥️</button>
+          <button class="ctrl-btn off" title="Chiqish">📞</button>
+        </div>
+      </div>
+      `;
+    }
+
+    function renderTeamChatView(container) {
+      container.innerHTML = `
+      <div class="idea-card" style="padding: 0; overflow: hidden; height: 550px; display: flex; flex-direction: column;">
+        <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); background: var(--bg-surface); display: flex; align-items: center; justify-content: space-between;">
+          <div style="font-weight: 800;">💬 TalimGo — Jamoa Chati</div>
+          <div style="font-size: 0.8rem; color: var(--signal-lime); background: var(--signal-lime-dim); padding: 4px 10px; border-radius: var(--radius-full);">3 A'zo</div>
+        </div>
+
+        <div style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;" id="teamMessagesContainer">
+          <div style="align-self: flex-start; background: var(--bg-card); padding: 10px 14px; border-radius: var(--radius-md); max-width: 80%;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">Dilnoza K. • 14:20</div>
+            <div>Hammaga salom! Prototip bo'yicha Figma dizayn tayyor bo'ldi.</div>
+          </div>
+          <div style="align-self: flex-end; background: var(--signal-lime-dim); border: 1px solid rgba(204,255,0,0.2); padding: 10px 14px; border-radius: var(--radius-md); max-width: 80%;">
+            <div style="font-size: 0.75rem; color: var(--signal-lime); font-weight: 700;">Siz • 14:22</div>
+            <div>Ajoyib! Kodlash qismini bugun kechqurun boshlayman.</div>
+          </div>
+        </div>
+
+        <div style="padding: 14px; border-top: 1px solid var(--border-color); display: flex; gap: 10px; background: var(--bg-surface);">
+          <input type="text" class="form-input" id="teamMsgInput" placeholder="Jamoaga xabar yozing..." style="flex: 1;" onkeydown="if(event.key==='Enter') sendTeamMsg()">
+          <button class="btn-create" style="padding: 10px 18px;" onclick="sendTeamMsg()">Yuborish</button>
+        </div>
+      </div>
+      `;
+    }
+
+    function sendTeamMsg() {
+      const input = document.getElementById('teamMsgInput');
+      const txt = input.value.trim();
+      if (!txt) return;
+
+      const container = document.getElementById('teamMessagesContainer');
+      const msg = document.createElement('div');
+      msg.style.alignSelf = 'flex-end';
+      msg.style.background = 'var(--signal-lime-dim)';
+      msg.style.border = '1px solid rgba(204,255,0,0.2)';
+      msg.style.padding = '10px 14px';
+      msg.style.borderRadius = 'var(--radius-md)';
+      msg.style.maxWidth = '80%';
+      msg.innerHTML = `<div style="font-size: 0.75rem; color: var(--signal-lime); font-weight: 700;">Siz • Hozir</div><div>${esc(txt)}</div>`;
+      container.appendChild(msg);
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function renderPeopleView(container) {
+      container.innerHTML = `
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        ${S.users.map(u => `
+        <div class="idea-card">
+          <div class="card-header">
+            ${renderAvatar(u.name)}
+            <div class="card-title-group">
+              <h3 class="card-title"><a href="#" class="card-author-link" onclick="openUserProfile('${esc(u.name)}'); return false;">${esc(u.name)}</a></h3>
+              <div class="card-meta">${esc(u.bio)} ${u.tg ? '• ' + tgLink(u.tg) : ''}</div>
+            </div>
+          </div>
+          <div class="roles-needed">
+            ${u.skills.map(s => `<span class="role-chip" style="background: rgba(192, 132, 252, 0.1); color: var(--accent-purple); border-color: rgba(192, 132, 252, 0.2);">${esc(s)}</span>`).join('')}
+          </div>
+        </div>
+        `).join('')}
+      </div>
+      `;
+    }
+
+    function renderMyProfileView(container) {
+      const m = S.me || { name: '', tg: '', bio: '', skills: [] };
+      const myIdeas = S.ideas.filter(i => i.owner === m.name);
+
+      container.innerHTML = `
+      <div class="panel-box" style="margin-bottom: 24px;">
+        <h3 class="panel-title">👤 Shaxsiy Profil Ma'lumotlari</h3>
+        <div class="form-group">
+          <label class="form-label">Ism va Familiya</label>
+          <input type="text" class="form-input" id="profileName" value="${esc(m.name)}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telegram Username</label>
+          <input type="text" class="form-input" id="profileTg" placeholder="@username" value="${esc(m.tg)}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Qisqa Bio / Mutaxassislik</label>
+          <input type="text" class="form-input" id="profileBio" value="${esc(m.bio)}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ko'nikmalar (vergul bilan)</label>
+          <input type="text" class="form-input" id="profileSkills" value="${esc(m.skills.join(', '))}">
+        </div>
+        <button class="btn-create" style="align-self: flex-start;" onclick="saveMyProfile()">Saqlash</button>
+      </div>
+
+      <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 14px;">Mening Startaplarim (${myIdeas.length})</h3>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        ${myIdeas.map(i => createIdeaCardHtml(i, false) + `<button class="btn-action" style="color: var(--accent-rose); border-color: rgba(251,113,133,0.3); align-self: flex-start; margin-top: -6px;" onclick="deleteMyIdea(${i.id})">🗑️ O‘chirish</button>`).join('') || '<div style="color: var(--text-muted);">Siz hali startap qo‘shmagansiz. "+ Yangi G‘oya Qo‘shish" tugmasini bosing!</div>'}
+      </div>
+      `;
+    }
+
+    function saveMyProfile() {
+      const name = document.getElementById('profileName').value.trim();
+      if (!name) {
+        showToast('Ismingizni kiriting');
+        return;
+      }
+      const oldName = S.me ? S.me.name : null;
+      const tg = cleanTg(document.getElementById('profileTg').value);
+      const bio = document.getElementById('profileBio').value.trim();
+      const skills = document.getElementById('profileSkills').value.split(',').map(s => s.trim()).filter(Boolean);
+
+      S.me = { name, tg, bio, skills };
+      
+      // Update users list
+      const uIdx = S.users.findIndex(u => u.name === oldName || u.name === name);
+      if (uIdx >= 0) {
+        S.users[uIdx] = S.me;
+      } else {
+        S.users.push(S.me);
+      }
+
+      // Sync ideas owner name
+      if (oldName) {
+        S.ideas.forEach(i => {
+          if (i.owner === oldName) i.owner = name;
+        });
+      }
+
+      saveState();
+      updateUserHUD();
+      showToast('Profil muvaffaqiyatli saqlandi!');
+      renderMainContent();
+    }
+
+    function deleteMyIdea(ideaId) {
+      if (confirm('Rostdan ham ushbu startapni o‘chirmoqchimisiz?')) {
+        S.ideas = S.ideas.filter(i => i.id !== ideaId);
+        saveState();
+        renderMainContent();
+        renderRightPanel();
+        showToast('Startap o‘chirildi');
+      }
+    }
+
+    function renderUserProfileDetail(container) {
+      const u = S.users.find(usr => usr.name === currentProfileUser);
+      if (!u) {
+        container.innerHTML = '<div style="color: var(--text-muted);">Foydalanuvchi topilmadi.</div>';
+        return;
+      }
+      const userIdeas = S.ideas.filter(i => i.owner === u.name);
+
+      container.innerHTML = `
+      <button class="btn-action" style="margin-bottom: 16px;" onclick="switchNav('feed')">← Orqaga</button>
+      <div class="idea-card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          ${renderAvatar(u.name)}
+          <div class="card-title-group">
+            <h3 class="card-title">${esc(u.name)}</h3>
+            <div class="card-meta">${esc(u.bio)} ${u.tg ? '• ' + tgLink(u.tg) : ''}</div>
+          </div>
+        </div>
+        <div class="roles-needed">
+          ${u.skills.map(s => `<span class="role-chip">${esc(s)}</span>`).join('')}
+        </div>
+      </div>
+
+      <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 14px;">${esc(u.name)} ning Startaplari (${userIdeas.length})</h3>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        ${userIdeas.map(i => createIdeaCardHtml(i, false)).join('') || '<div style="color: var(--text-muted);">Ushbu foydalanuvchi hali startap joylamagan.</div>'}
+      </div>
+      `;
+    }
+
+    // Modal Add Idea Submit
+    async function submitNewIdea() {
+      const title = document.getElementById('newIdeaTitle').value.trim();
+      const problem = document.getElementById('newIdeaProblem').value.trim();
+      const solution = document.getElementById('newIdeaSolution').value.trim();
+      const market = document.getElementById('newIdeaMarket').value.trim();
+      const stage = document.getElementById('newIdeaStage').value;
+      const rawTags = document.getElementById('newIdeaTags').value;
+      const fileInput = document.getElementById('newIdeaPitchFile');
+
+      if (!title || !problem || !solution) {
+        showToast('Nomi, muammo va yechimni to‘ldiring');
+        return;
+      }
+
+      const ownerName = myName();
+      if (!S.me) {
+        S.me = { name: ownerName, tg: '', bio: 'Startapchi', skills: [] };
+        S.users.push(S.me);
+      }
+
+      const tags = [...new Set(rawTags.toLowerCase().split(',').map(t => t.trim().replace(/^#/, '')).filter(Boolean))];
+      const idea = {
+        id: Date.now(),
+        owner: ownerName,
+        title,
+        problem,
+        solution,
+        market: market || 'O‘zbekiston bozori',
+        stage,
+        seek: [...selectedSeekModal],
+        tags: tags.length ? tags : ['startup'],
+        votes: [ownerName],
+        pitch: null,
+        fb: { pro: [], con: [], tip: [] }
+      };
+
+      const file = fileInput.files[0];
+      if (file) {
+        if (file.size > 1.5 * 1024 * 1024) {
+          showToast('Fayl hajmi 1.5 MB dan oshmasligi kerak');
+          return;
+        }
+        try {
+          idea.pitch = await new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = () => resolve({ name: file.name, data: reader.result });
+            reader.readAsDataURL(file);
+          });
+        } catch(e) {}
+      }
+
+      S.ideas.unshift(idea);
+      selectedSeekModal.clear();
+      saveState();
+      addXP(20, "Yangi g'oya qo'shildi");
+      closeModal('addIdeaModal');
+      
+      // Reset form
+      document.getElementById('newIdeaTitle').value = '';
+      document.getElementById('newIdeaProblem').value = '';
+      document.getElementById('newIdeaSolution').value = '';
+      document.getElementById('newIdeaMarket').value = '';
+      document.getElementById('newIdeaTags').value = '';
+      fileInput.value = '';
+
+      renderMainContent();
+      renderRightPanel();
+    }
+
+    // Modal Roles Chips Init
+    function renderModalSeekChips() {
+      const container = document.getElementById('modalSeekChips');
+      container.innerHTML = SEEK_ROLES.map(role => {
+        const isSelected = selectedSeekModal.has(role);
+        return `<button class="tag-chip ${isSelected ? 'active' : ''}" onclick="toggleModalSeekRole('${role}')">${role}</button>`;
+      }).join('');
+    }
+    function toggleModalSeekRole(role) {
+      if (selectedSeekModal.has(role)) {
+        selectedSeekModal.delete(role);
+      } else {
+        selectedSeekModal.add(role);
+      }
+      renderModalSeekChips();
+    }
+
+    // Right Panel Renderer
+    function renderRightPanel() {
+      // Top Ideas
+      const topIdeas = [...S.ideas].sort((a, b) => b.votes.length - a.votes.length).slice(0, 5);
+      const topIdeasContainer = document.getElementById('topIdeasPanel');
+      topIdeasContainer.innerHTML = topIdeas.map(i => `
+        <div class="top-idea-item">
+          <div class="top-idea-title">${esc(i.title)}</div>
+          <div class="vote-count-badge">▲ ${i.votes.length}</div>
+        </div>
+      `).join('');
+
+      // Active Members
+      const membersContainer = document.getElementById('activeMembersPanel');
+      membersContainer.innerHTML = S.users.slice(0, 4).map(u => `
+        <div class="member-item">
+          ${renderAvatar(u.name)}
+          <div>
+            <div class="member-name">${esc(u.name)}</div>
+            <div class="member-skills">${esc((u.skills || []).slice(0, 2).join(', ') || 'Startapchi')}</div>
+          </div>
+        </div>
+      `).join('');
+
+      // Stats
+      document.getElementById('statIdeaCount').textContent = S.ideas.length;
+      document.getElementById('statMemberCount').textContent = S.users.length;
+    }
+
+    // Initialize Application
+    function initApp() {
+      updateUserHUD();
+      renderTagsCloud();
+      renderModalSeekChips();
+      renderMainContent();
+      renderRightPanel();
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
